@@ -66,7 +66,7 @@ export default function Home() {
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-r from-white via-cyan-100 to-primary bg-clip-text text-transparent font-outfit drop-shadow-[0_0_15px_rgba(0,243,255,0.3)]">
           Your Career Path,<br />Engineered by AI.
         </h1>
-        <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto">
+        <p className="text-slate-300 text-lg md:text-xl max-w-2xl mx-auto">
           Upload your resume and state your dream goal. Neuro-Nest builds a personalized mastery tree to get you there.
         </p>
       </motion.div>
@@ -99,7 +99,7 @@ export default function Home() {
               {file ? (
                 <div className="text-primary font-medium">{file.name}</div>
               ) : (
-                <div className="text-slate-500 hover:text-slate-400 transition-colors">Click to upload or drag and drop</div>
+                <div className="text-slate-400 hover:text-slate-300 transition-colors">Click to upload or drag and drop</div>
               )}
             </div>
           </div>
@@ -112,7 +112,7 @@ export default function Home() {
             <input 
               type="text" 
               placeholder="e.g. Senior AI Engineer at Google"
-              className="w-full bg-cyber-dark-900 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:ring-2 focus:ring-primary transition-all placeholder:text-slate-600"
+              className="w-full bg-gray-900 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:ring-2 focus:ring-primary transition-all placeholder:text-slate-500"
               value={goal}
               onChange={(e: any) => setGoal(e.target.value)}
             />
@@ -123,7 +123,7 @@ export default function Home() {
             <button 
               type="button"
               onClick={loginAsGuest}
-              className="w-full flex items-center justify-center gap-2 glass-button !bg-slate-800 hover:!bg-slate-700"
+              className="w-full flex items-center justify-center gap-2 glass-button !bg-slate-800 hover:!bg-slate-700 !text-slate-200"
             >
               <ShieldCheck className="w-5 h-5" />
               Continue as Guest

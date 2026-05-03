@@ -1,11 +1,11 @@
 # 🧠 Neuro-Nest: Neural Career Synthesis Engine
 
-[![Engine](https://img.shields.io/badge/Engine-Gemini_2.0_Flash-00F5FF?style=for-the-badge&logo=google-gemini)](https://deepmind.google/technologies/gemini/)
-[![Framework](https://img.shields.io/badge/Framework-Next.js_14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![Engine](https://img.shields.io/badge/Engine-Gemini_2.5_Flash-00F5FF?style=for-the-badge&logo=google-gemini)](https://deepmind.google/technologies/gemini/)
+[![Framework](https://img.shields.io/badge/Framework-Next.js_16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![Database](https://img.shields.io/badge/Database-Supabase_Cloud-3ECF8E?style=for-the-badge&logo=supabase)](https://supabase.com/)
 [![Interface](https://img.shields.io/badge/Interface-Cyber--Dark_UI-7000FF?style=for-the-badge&logo=framer)](https://www.framer.com/motion/)
 
-> **Neuro-Nest** is a sophisticated career engineering platform that leverages Large Language Models (LLMs) to bridge the gap between current professional states and aspirational industry roles. Through neural resume parsing and adaptive graph synthesis, it constructs a high-fidelity learning trajectory tailored to individual cognitive profiles.
+> **Neuro-Nest** is a high-performance career engineering platform that leverages cutting-edge Large Language Models (LLMs) to synthesize personalized mastery trajectories. By merging neural resume parsing with adaptive graph theory, it engineers the shortest path between your current skill-set and your ultimate professional objectives.
 
 ---
 
@@ -20,7 +20,7 @@ graph TD
         B --> C[Normalized String]
     end
 
-    subgraph "2. Intelligence Layer (Gemini 2.0 Flash)"
+    subgraph "2. Intelligence Layer (Gemini 2.5 Flash)"
         C --> D{Neural Analyzer}
         D --> E[Skill Extraction]
         D --> F[Gap Analysis]
@@ -48,7 +48,7 @@ graph TD
 
 ### 🛰️ Stage Details
 1.  **Ingestion**: Resumes are deconstructed into structured text blocks using a custom `pdf-parse` utility, stripping noise while preserving semantic context.
-2.  **Intelligence**: The **Gemini 2.0 Flash** orchestrator performs a dual-pass analysis. Pass 1 extracts an atomic skill-set; Pass 2 maps those skills against the "Dream Goal" to identify the shortest path to mastery.
+2.  **Intelligence**: The **Gemini 2.5 Flash** orchestrator performs a multi-pass analysis. Pass 1 extracts an atomic skill-set; Pass 2 maps those skills against the "Dream Goal" to identify the shortest path to mastery.
 3.  **Synthesis**: The **Graph Orchestrator** converts AI logic into a formal JSON Graph (Nodes & Edges), which is then persisted in Supabase to maintain a stateful learning environment.
 4.  **Validation**: Users engage with the **Neural Map** via a React Flow interface. Mastery is validated through real-time AI-generated assessments that dynamically unlock sequential learning paths.
 
@@ -66,8 +66,10 @@ Unlike static roadmaps, Neuro-Nest validates learning through **Cognitive Alignm
 - **Dynamic Quiz Generation**: Questions are synthesized on-the-fly based on node metadata.
 - **Automated State Progression**: Real-time DB triggers unlock dependent nodes only upon successful validation.
 
-### 📊 Resume Evolver Widget
-A real-time preview of your professional "strength" rating. As you master nodes, the evolver projects your market value and unlocks industry-optimized keywords for your next career move.
+### 💎 Premium Cyber-Dark UI
+A state-of-the-art interface designed for focus and immersion.
+- **High-Contrast Typography**: Optimized visibility for accessibility and prolonged focus.
+- **Fluid Animations**: Powered by Framer Motion for a responsive, "alive" feel.
 
 ---
 
@@ -75,8 +77,8 @@ A real-time preview of your professional "strength" rating. As you master nodes,
 
 | Layer | Technology | Purpose |
 | :--- | :--- | :--- |
-| **Frontend** | Next.js 14 (React) | Reactive Application Architecture |
-| **Intelligence** | Google Gemini 2.0 Flash | LLM Orchestration & Analysis |
+| **Frontend** | Next.js 16 (React 19) | Reactive Application Architecture |
+| **Intelligence** | Google Gemini 2.5 Flash | LLM Orchestration & Analysis |
 | **Persistence** | Supabase (PostgreSQL) | Stateful Graph & Progress Management |
 | **State** | React Flow | Interactive Neural Map Visualization |
 | **Animations** | Framer Motion | Fluid UI Transitions & Micro-interactions |
