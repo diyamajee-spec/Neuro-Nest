@@ -6,3 +6,16 @@ declare module 'clsx' {
 declare module 'tailwind-merge' {
   export function twMerge(...inputs: string[]): string;
 }
+
+// Basic Node.js type stubs to satisfy compiler
+declare var process: {
+  env: {
+    [key: string]: string | undefined;
+  };
+};
+
+declare var module: {
+  exports: any;
+};
+
+declare var require: any;
