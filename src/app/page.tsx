@@ -64,10 +64,10 @@ export default function Home() {
           <span>Powered by Gemini 2.5 Flash</span>
         </motion.div>
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-r from-white via-cyan-100 to-primary bg-clip-text text-transparent font-outfit drop-shadow-[0_0_15px_rgba(0,243,255,0.3)]">
-          Your Career Path,<br />Engineered by AI.
+          Architect Your Career.<br />Synthesized by AI.
         </h1>
         <p className="text-slate-300 text-lg md:text-xl max-w-2xl mx-auto">
-          Upload your resume and state your dream goal. Neuro-Nest builds a personalized mastery tree to get you there.
+          Deconstruct your professional profile and forge a high-fidelity mastery trajectory toward your ultimate objective.
         </p>
       </motion.div>
 
@@ -82,7 +82,7 @@ export default function Home() {
           {/* File Upload */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-              <Upload className="w-4 h-4 text-primary" /> 1. Upload Resume (PDF)
+              <Upload className="w-4 h-4 text-primary" /> 1. Inject Professional Profile (PDF)
             </label>
             <div 
               className={`border-2 border-dashed rounded-xl p-8 text-center transition-colors cursor-pointer
@@ -99,7 +99,7 @@ export default function Home() {
               {file ? (
                 <div className="text-primary font-medium">{file.name}</div>
               ) : (
-                <div className="text-slate-400 hover:text-slate-300 transition-colors">Click to upload or drag and drop</div>
+                <div className="text-slate-400 hover:text-slate-300 transition-colors">Select PDF or drop to initialize</div>
               )}
             </div>
           </div>
@@ -107,7 +107,7 @@ export default function Home() {
           {/* Dream Goal */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-              <Target className="w-4 h-4 text-primary" /> 2. Your Dream Goal
+              <Target className="w-4 h-4 text-primary" /> 2. Define Target Objective
             </label>
             <input 
               type="text" 
@@ -142,7 +142,7 @@ export default function Home() {
               ) : (
                 <>
                   <BrainCircuit className="w-5 h-5" />
-                  Initialize Path
+                  Synthesize Trajectory
                   <ArrowRight className="w-5 h-5" />
                 </>
               )}
