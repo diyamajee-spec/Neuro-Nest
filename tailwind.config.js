@@ -8,31 +8,42 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "#0A0A0B",
+        surface: "#161618",
         primary: {
-          DEFAULT: "#00f3ff",
-          foreground: "#0a0a0a",
+          DEFAULT: "#00F5FF",
+          glow: "rgba(0, 245, 255, 0.5)",
         },
-        secondary: {
-          DEFAULT: "#111111",
-          foreground: "#ffffff",
-        },
-        accent: {
-          DEFAULT: "#f43f5e",
-          foreground: "#ffffff",
-        },
-        "cyber-dark": {
-          900: "#0a0a0a",
-          800: "#111111",
-          700: "#1a1a1a",
+        secondary: "#7000FF",
+        accent: "#FF00E5",
+        gray: {
+          900: "#0A0A0B",
+          800: "#161618",
+          700: "#232326",
+          600: "#2D2D31",
+          400: "#A1A1AA",
+          200: "#E2E2E2",
         }
       },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        'neural-gradient': 'radial-gradient(circle at center, var(--tw-gradient-stops))',
+        'glass-gradient': 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%)',
       },
+      animation: {
+        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'scan': 'scan 3s linear infinite',
+        'float': 'float 6s ease-in-out infinite',
+      },
+      keyframes: {
+        scan: {
+          '0%': { transform: 'translateY(-100%)' },
+          '100%': { transform: 'translateY(100%)' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' },
+        }
+      }
     },
   },
   plugins: [],

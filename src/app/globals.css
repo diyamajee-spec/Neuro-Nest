@@ -1,94 +1,73 @@
-/* Tailwind Base Styles */
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #f8fafc;
+  --background: #0A0A0B;
+  --foreground: #E2E2E2;
+  --primary: #00F5FF;
+  --secondary: #7000FF;
+  --accent: #FF00E5;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
+@layer base {
+  body {
+    @apply bg-background text-foreground selection:bg-primary/30 selection:text-primary;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
 }
 
-.glass-card {
-  background-color: rgba(15, 23, 42, 0.5);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(30, 41, 59, 0.5);
-  border-radius: 1rem;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-}
+@layer components {
+  .glass-card {
+    @apply bg-surface/50 backdrop-blur-xl border border-white/5 rounded-2xl shadow-2xl;
+  }
+  
+  .glass-button {
+    @apply relative overflow-hidden px-6 py-3 rounded-full font-semibold transition-all duration-300
+           bg-primary text-background shadow-[0_0_20px_rgba(0,245,255,0.3)]
+           hover:shadow-[0_0_30px_rgba(0,245,255,0.5)] hover:scale-105 active:scale-95;
+  }
 
-.glass-button {
-  padding: 0.75rem 1.5rem;
-  border-radius: 9999px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  background-color: #00f3ff;
-  color: #0a0a0a;
-  box-shadow: 0 10px 15px -3px rgba(0, 243, 255, 0.3);
-  border: none;
-  cursor: pointer;
-}
+  .neon-border {
+    @apply border border-primary/20 hover:border-primary/50 transition-colors duration-500 shadow-[0_0_15px_rgba(0,245,255,0.1)];
+  }
 
-.glass-button:hover {
-  background-color: #33f5ff;
-  box-shadow: 0 10px 15px -3px rgba(0, 243, 255, 0.5);
-}
-
-.glass-button:active {
-  transform: scale(0.95);
-}
-
-.glass-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.nav-blur {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background-color: rgba(2, 6, 23, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+  .neural-bg {
+    background: radial-gradient(circle at 50% 50%, rgba(112, 0, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 0% 0%, rgba(0, 245, 255, 0.05) 0%, transparent 40%);
+  }
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
+  @apply bg-transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #1e293b;
-  border-radius: 9999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background-color: #334155;
+  @apply bg-gray-700 rounded-full hover:bg-primary/50 transition-colors;
 }
 
-/* Node Animations */
-@keyframes pulse-ring {
-  0% { transform: scale(.33); opacity: 0; }
-  80%, 100% { opacity: 0; }
+/* Scan Animation Utility */
+.scan-line {
+  @apply absolute w-full h-1 bg-primary/30 shadow-[0_0_15px_rgba(0,245,255,0.5)] animate-scan;
 }
 
-.node-active {
-  position: relative;
+/* React Flow Overrides */
+.react-flow__pane {
+  @apply bg-background;
 }
 
-.node-active::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 9999px;
-  border: 2px solid #00f3ff;
-  animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+.react-flow__edge-path {
+  @apply stroke-gray-700 stroke-[2px];
+}
+
+.react-flow__controls {
+  @apply bg-surface/80 backdrop-blur-md border border-white/5 rounded-lg overflow-hidden !m-4;
+}
+
+.react-flow__controls-button {
+  @apply !bg-transparent !border-none !fill-gray-400 hover:!fill-primary transition-colors;
 }
 
