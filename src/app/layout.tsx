@@ -8,7 +8,7 @@ const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 export const metadata: Metadata = {
   title: "Neuro-Nest | AI-Powered Career Synthesis",
-  description: "Accelerate your career trajectory with personalized neural mastery maps engineered by Gemini 2.0 Flash.",
+  description: "Accelerate your career trajectory with personalized neural mastery maps engineered by Gemini 2.5 Flash.",
 };
 
 export default function RootLayout({

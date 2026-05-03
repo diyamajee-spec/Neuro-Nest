@@ -61,7 +61,7 @@ export default function Home() {
           className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6 backdrop-blur-md"
         >
           <Sparkles className="w-4 h-4" />
-          <span>Powered by Gemini 1.5 Pro</span>
+          <span>Powered by Gemini 2.5 Flash</span>
         </motion.div>
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-r from-white via-cyan-100 to-primary bg-clip-text text-transparent font-outfit drop-shadow-[0_0_15px_rgba(0,243,255,0.3)]">
           Your Career Path,<br />Engineered by AI.
