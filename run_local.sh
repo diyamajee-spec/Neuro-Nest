@@ -1,21 +1,22 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
 # Neuro-Nest Local Startup Script
 echo "=========================================="
 echo "   🧠 NEURO-NEST: AI CAREER ENGINE        "
 echo "=========================================="
 
-# Check for .env file
-if [ ! -f .env ] && [ ! -f .env.local ]; then
-    echo "⚠️ Warning: .env.local file not found!"
-    echo "Please copy .env.example to .env.local and fill in your keys."
+# Ensure .env.local exists
+if [ ! -f .env.local ]; then
     if [ -f .env.example ]; then
+        echo "⚠️ .env.local file not found. Creating from .env.example..."
         cp .env.example .env.local
         echo "✅ Created .env.local from .env.example template."
+    else
+        echo "⚠️ .env.local file not found and .env.example is missing."
+        echo "Please create .env.local with your Supabase and Gemini keys."
     fi
 fi
 
-# Check for node_modules
+# Install dependencies if needed
 if [ ! -d "node_modules" ]; then
     echo "📦 node_modules missing. Installing dependencies..."
     npm install
@@ -25,6 +26,14 @@ if [ ! -d "node_modules" ]; then
     fi
 fi
 
-# Start the application
-echo "🚀 Launching development server on http://localhost:8080..."
-npm run dev
+# Choose an available port
+PORT=8080
+for candidate in 8080 8081 8082 8083 8084; do
+    if ! (exec 3<>/dev/tcp/127.0.0.1/$candidate) 2>/dev/null; then
+        PORT=$candidate
+        break
+    fi
+done
+
+echo "🚀 Launching development server on http://localhost:$PORT..."
+npm run dev -- -p "$PORT"

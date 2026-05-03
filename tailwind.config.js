@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         background: "#0A0A0B",
         surface: "#161618",
+        foreground: "#E2E2E2",
         primary: {
           DEFAULT: "#00F5FF",
           glow: "rgba(0, 245, 255, 0.5)",

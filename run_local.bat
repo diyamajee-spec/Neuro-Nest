@@ -4,18 +4,19 @@ echo ==========================================
 echo    🧠 NEURO-NEST: AI CAREER ENGINE        
 echo ==========================================
 
-:: Check for .env file
+:: Ensure environment file exists
 if not exist .env.local (
-    if not exist .env (
-        echo ⚠️ Warning: .env.local file not found!
-        if exist .env.example (
-            copy .env.example .env.local
-            echo ✅ Created .env.local from .env.example template.
-        )
+    if exist .env.example (
+        echo ⚠️ .env.local file not found. Creating from .env.example...
+        copy .env.example .env.local
+        echo ✅ Created .env.local from .env.example template.
+    ) else (
+        echo ⚠️ .env.local file not found and .env.example is missing.
+        echo Please create .env.local with your Supabase and Gemini keys.
     )
 )
 
-:: Check for node_modules
+:: Install dependencies if needed
 if not exist node_modules (
     echo 📦 node_modules missing. Installing dependencies...
     call npm install
@@ -26,7 +27,22 @@ if not exist node_modules (
     )
 )
 
-:: Start the application
-echo 🚀 Launching development server on http://localhost:8080...
-npm run dev
+:: Choose an available port
+setlocal enabledelayedexpansion
+set "PORT=8080"
+for %%P in (8080 8081 8082 8083 8084) do (
+    set "IN_USE=0"
+    for /f "tokens=5" %%A in ('netstat -ano ^| findstr /C:":%%P " ^| findstr LISTENING') do (
+        set "IN_USE=1"
+    )
+    if !IN_USE! EQU 0 (
+        set "PORT=%%P"
+        goto :PORT_FOUND
+    )
+)
+:PORT_FOUND
+endlocal & set "PORT=%PORT%"
+
+echo 🚀 Launching development server on http://localhost:%PORT%...
+call npm run dev -- -p %PORT%
 pause
