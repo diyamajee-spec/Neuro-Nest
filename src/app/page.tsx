@@ -58,12 +58,12 @@ export default function Home() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6 backdrop-blur-md"
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-mono mb-6 backdrop-blur-md"
         >
           <Sparkles className="w-4 h-4" />
           <span>Powered by Gemini 2.5 Flash</span>
         </motion.div>
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-r from-white via-cyan-100 to-primary bg-clip-text text-transparent font-outfit drop-shadow-[0_0_15px_rgba(0,243,255,0.3)]">
+        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-r from-white via-cyan-100 to-primary bg-clip-text text-transparent font-display drop-shadow-[0_0_15px_rgba(0,243,255,0.3)]">
           Architect Your Career.<br />Synthesized by AI.
         </h1>
         <p className="text-slate-300 text-lg md:text-xl max-w-2xl mx-auto">
@@ -81,7 +81,7 @@ export default function Home() {
         <form onSubmit={handleGenerate} className="glass-card p-8 space-y-6">
           {/* File Upload */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
+            <label className="text-sm font-mono text-slate-300 flex items-center gap-2">
               <Upload className="w-4 h-4 text-primary" /> 1. Inject Professional Profile (PDF)
             </label>
             <div 
@@ -106,7 +106,7 @@ export default function Home() {
 
           {/* Dream Goal */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
+            <label className="text-sm font-mono text-slate-300 flex items-center gap-2">
               <Target className="w-4 h-4 text-primary" /> 2. Define Target Objective
             </label>
             <input 

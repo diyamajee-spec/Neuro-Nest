@@ -24,7 +24,12 @@ module.exports = {
           600: "#2D2D31",
           400: "#A1A1AA",
           200: "#E2E2E2",
-        }
+        },
+        fontFamily: {
+          sans: ["var(--font-inter)", "sans-serif"],
+          display: ["var(--font-display)", "sans-serif"],
+          mono: ["var(--font-mono)", "monospace"],
+        },
       },
       backgroundImage: {
         'neural-gradient': 'radial-gradient(circle at center, var(--tw-gradient-stops))',

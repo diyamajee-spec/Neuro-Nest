@@ -48,6 +48,8 @@ declare module 'next/navigation' {
 declare module 'next/font/google' {
   export function Inter(options: any): any;
   export function Outfit(options: any): any;
+  export function Space_Grotesk(options: any): any;
+  export function JetBrains_Mono(options: any): any;
 }
 
 declare module 'framer-motion' {
