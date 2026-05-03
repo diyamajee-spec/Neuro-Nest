@@ -10,13 +10,17 @@
 # Next.js
 /.next/
 /out/
+.turbo
 
 # Production
 /build
+/dist
 
 # Misc
 .DS_Store
 *.pem
+*.log
+.eslintcache
 
 # Debug
 npm-debug.log*
@@ -25,16 +29,23 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # Local env files
-.env*.local
 .env
+.env*.local
 .env.test
+.env.production
+.env.development
 
 # Vercel
 .vercel
 
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
 # TypeScript
 *.tsbuildinfo
-next-env.d.ts
 
 # Supabase
 /supabase/.temp
