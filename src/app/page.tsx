@@ -46,18 +46,24 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-4 py-20 overflow-hidden">
+    <div className="flex flex-col items-center justify-center min-h-screen px-4 py-20 overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyber-dark-800 via-background to-background relative z-0">
       {/* Hero Section */}
       <motion.div 
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-12"
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="text-center mb-12 relative z-10"
       >
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6 backdrop-blur-md"
+        >
           <Sparkles className="w-4 h-4" />
           <span>Powered by Gemini 1.5 Pro</span>
-        </div>
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent font-outfit">
+        </motion.div>
+        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-r from-white via-cyan-100 to-primary bg-clip-text text-transparent font-outfit drop-shadow-[0_0_15px_rgba(0,243,255,0.3)]">
           Your Career Path,<br />Engineered by AI.
         </h1>
         <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto">
@@ -76,11 +82,11 @@ export default function Home() {
           {/* File Upload */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-              <Upload className="w-4 h-4" /> 1. Upload Resume (PDF)
+              <Upload className="w-4 h-4 text-primary" /> 1. Upload Resume (PDF)
             </label>
             <div 
               className={`border-2 border-dashed rounded-xl p-8 text-center transition-colors cursor-pointer
-                ${file ? 'border-indigo-500 bg-indigo-500/5' : 'border-slate-700 hover:border-slate-600'}`}
+                ${file ? 'border-primary bg-primary/5' : 'border-slate-700 hover:border-primary/50'}`}
               onClick={() => document.getElementById('file-upload')?.click()}
             >
               <input 
@@ -91,9 +97,9 @@ export default function Home() {
                 onChange={(e: any) => setFile(e.target.files?.[0] || null)}
               />
               {file ? (
-                <div className="text-indigo-400 font-medium">{file.name}</div>
+                <div className="text-primary font-medium">{file.name}</div>
               ) : (
-                <div className="text-slate-500">Click to upload or drag and drop</div>
+                <div className="text-slate-500 hover:text-slate-400 transition-colors">Click to upload or drag and drop</div>
               )}
             </div>
           </div>
@@ -101,12 +107,12 @@ export default function Home() {
           {/* Dream Goal */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-              <Target className="w-4 h-4" /> 2. Your Dream Goal
+              <Target className="w-4 h-4 text-primary" /> 2. Your Dream Goal
             </label>
             <input 
               type="text" 
               placeholder="e.g. Senior AI Engineer at Google"
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+              className="w-full bg-cyber-dark-900 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:ring-2 focus:ring-primary transition-all placeholder:text-slate-600"
               value={goal}
               onChange={(e: any) => setGoal(e.target.value)}
             />
@@ -146,8 +152,9 @@ export default function Home() {
       </motion.div>
 
       {/* Floating Elements (Visual Decoration) */}
-      <div className="absolute top-1/4 left-10 w-24 h-24 bg-indigo-500/20 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-1/4 right-10 w-32 h-32 bg-rose-500/20 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute top-1/4 left-10 w-32 h-32 bg-primary/20 rounded-full blur-[100px] animate-pulse" />
+      <div className="absolute bottom-1/4 right-10 w-48 h-48 bg-primary/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
     </div>
   );
 }

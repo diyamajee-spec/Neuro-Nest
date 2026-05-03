@@ -11,17 +11,22 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         primary: {
-          DEFAULT: "#6366f1",
-          foreground: "#ffffff",
+          DEFAULT: "#00f3ff",
+          foreground: "#0a0a0a",
         },
         secondary: {
-          DEFAULT: "#1e293b",
-          foreground: "#f8fafc",
+          DEFAULT: "#111111",
+          foreground: "#ffffff",
         },
         accent: {
           DEFAULT: "#f43f5e",
           foreground: "#ffffff",
         },
+        "cyber-dark": {
+          900: "#0a0a0a",
+          800: "#111111",
+          700: "#1a1a1a",
+        }
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

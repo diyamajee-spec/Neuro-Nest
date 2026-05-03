@@ -4,7 +4,7 @@
 @import "tailwindcss/utilities";
 
 :root {
-  --background: #020617;
+  --background: #0a0a0a;
   --foreground: #f8fafc;
 }
 
@@ -27,15 +27,16 @@ body {
   border-radius: 9999px;
   font-weight: 500;
   transition: all 0.3s ease;
-  background-color: #4f46e5;
-  color: #ffffff;
-  box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.2);
+  background-color: #00f3ff;
+  color: #0a0a0a;
+  box-shadow: 0 10px 15px -3px rgba(0, 243, 255, 0.3);
   border: none;
   cursor: pointer;
 }
 
 .glass-button:hover {
-  background-color: #6366f1;
+  background-color: #33f5ff;
+  box-shadow: 0 10px 15px -3px rgba(0, 243, 255, 0.5);
 }
 
 .glass-button:active {
@@ -87,7 +88,7 @@ body {
   position: absolute;
   inset: 0;
   border-radius: 9999px;
-  border: 2px solid #6366f1;
+  border: 2px solid #00f3ff;
   animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
 }
 
