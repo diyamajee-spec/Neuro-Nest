@@ -275,10 +275,10 @@ export default function Dashboard() {
                      return updatedNodes.map((node: any) => {
                        if (node.data.status === 'locked') {
                          // Find edges pointing to this node
-                         const incomingEdges = edges.filter(e => e.target === node.id);
+                         const incomingEdges = edges.filter((e: any) => e.target === node.id);
                          // Check if all source nodes are completed
-                         const allParentsCompleted = incomingEdges.every(e => {
-                           const parent = updatedNodes.find(n => n.id === e.source);
+                         const allParentsCompleted = incomingEdges.every((e: any) => {
+                           const parent = updatedNodes.find((n: any) => n.id === e.source);
                            return parent?.data.status === 'completed';
                          });
                          
@@ -295,7 +295,7 @@ export default function Dashboard() {
                  // Update edges for demo mode (glow effect)
                  if (id === 'demo') {
                    setEdges((eds: any[]) => eds.map(edge => {
-                     const sourceNode = nodes.find(n => n.id === edge.source);
+                     const sourceNode = nodes.find((n: any) => n.id === edge.source);
                      if (sourceNode?.data.label === selectedNodeData.label || sourceNode?.id === selectedNodeData.id) {
                        return { ...edge, animated: true, style: { ...edge.style, stroke: '#00f3ff' } };
                      }
