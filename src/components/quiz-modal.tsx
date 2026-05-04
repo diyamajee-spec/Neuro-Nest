@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle2, AlertCircle, ArrowRight, BrainCircuit, Sparkles, Trophy } from 'lucide-react';
+import { useAuth } from '@/lib/auth-context';
 import { cn } from '@/lib/utils';
 
 interface QuizModalProps {
@@ -12,6 +13,7 @@ interface QuizModalProps {
 }
 
 export default function QuizModal({ node, onClose, onSuccess }: QuizModalProps) {
+  const { user, isGuest } = useAuth();
   const [questions, setQuestions] = useState<any[]>([]);
   const [currentStep, setCurrentStep] = useState(0); // 0: loading, 1: quiz, 2: results
   const [userAnswers, setUserAnswers] = useState<number[]>([]);
@@ -28,34 +30,39 @@ export default function QuizModal({ node, onClose, onSuccess }: QuizModalProps) 
           setQuestions(data.quiz);
           setCurrentStep(1);
         } else {
-          // Mock data for demo if API fails
-          setQuestions([
-            {
-              question: `Which architectural pattern is most critical for ${node.label}?`,
-              options: ["Atomic Design Synthesis", "Micro-kernel Integration", "Linear Sequential Flow", "Distributed State Propagation"],
-              correctAnswer: 0,
-              explanation: "Atomic Design Synthesis allows for the most modular and scalable architecture in this context."
-            },
-            {
-              question: `How does ${node.label} typically handle neural concurrency?`,
-              options: ["Synchronous Blocking", "Event-Loop Delegation", "Recursive Threading", "Manual Memory Locking"],
-              correctAnswer: 1,
-              explanation: "Event-loop delegation ensures non-blocking operations which is vital for neural processing."
-            },
-            {
-              question: "What is the primary cognitive load optimizer in this skill?",
-              options: ["Lazy-Loading Abstraction", "Strict Type Enforcement", "Heuristic Caching", "Bi-directional Mapping"],
-              correctAnswer: 2,
-              explanation: "Heuristic caching significantly reduces re-calculation costs and optimizes performance."
-            }
-          ]);
-          setCurrentStep(1);
+          // No quiz data in response, use mock data
+          setMockData();
         }
       } catch (err) {
-        console.error(err);
+        console.error("Quiz fetch error:", err);
+        setMockData();
       } finally {
         setLoading(false);
       }
+    };
+
+    const setMockData = () => {
+      setQuestions([
+        {
+          question: `Which architectural pattern is most critical for ${node.label}?`,
+          options: ["Atomic Design Synthesis", "Micro-kernel Integration", "Linear Sequential Flow", "Distributed State Propagation"],
+          correctAnswer: 0,
+          explanation: "Atomic Design Synthesis allows for the most modular and scalable architecture in this context."
+        },
+        {
+          question: `How does ${node.label} typically handle neural concurrency?`,
+          options: ["Synchronous Blocking", "Event-Loop Delegation", "Recursive Threading", "Manual Memory Locking"],
+          correctAnswer: 1,
+          explanation: "Event-loop delegation ensures non-blocking operations which is vital for neural processing."
+        },
+        {
+          question: "What is the primary cognitive load optimizer in this skill?",
+          options: ["Lazy-Loading Abstraction", "Strict Type Enforcement", "Heuristic Caching", "Bi-directional Mapping"],
+          correctAnswer: 2,
+          explanation: "Heuristic caching significantly reduces re-calculation costs and optimizes performance."
+        }
+      ]);
+      setCurrentStep(1);
     };
 
     fetchQuiz();
@@ -80,18 +87,25 @@ export default function QuizModal({ node, onClose, onSuccess }: QuizModalProps) 
           nodeId: node.id,
           answers: userAnswers,
           questions: questions,
-          isGuest: true
+          userId: user?.id,
+          isGuest: isGuest
         }),
       });
       const data = await res.json();
+      
+      if (!res.ok) {
+        throw new Error(data.error || 'Server error during scoring');
+      }
+      
       setResult(data);
       setCurrentStep(2);
     } catch (err) {
       const correct = userAnswers.filter((a: any, i: number) => a === questions[i].correctAnswer).length;
-      const passed = correct >= 2;
+      const total = Math.max(1, questions.length);
+      const passed = correct / total >= 0.6;
       setResult({ 
         passed, 
-        score: Math.round((correct/questions.length)*100), 
+        score: Math.round((correct / total) * 100), 
         feedback: passed 
           ? "Exceptional performance. Your cognitive alignment with this node is confirmed." 
           : "Neural synchronization failed. Review the curriculum assets and re-attempt." 
@@ -155,7 +169,7 @@ export default function QuizModal({ node, onClose, onSuccess }: QuizModalProps) 
                 <div className="space-y-1">
                   <div className="text-[10px] font-black text-primary uppercase tracking-[0.3em]">Evaluation Progress</div>
                   <div className="text-2xl font-black text-white font-outfit">
-                    Question {currentQuestionIndex + 1}<span className="text-gray-600"> / {questions.length}</span>
+                    Question {Math.min(currentQuestionIndex + 1, questions.length)}<span className="text-gray-600"> / {questions.length}</span>
                   </div>
                 </div>
                 <div className="text-right">

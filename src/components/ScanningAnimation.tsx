@@ -8,8 +8,10 @@ export default function ScanningAnimation({
   onComplete: () => void 
 }) {
   const [step, setStep] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const timer1 = setTimeout(() => setStep(1), 2000);
     const timer2 = setTimeout(() => setStep(2), 4500);
     const timer3 = setTimeout(() => {
@@ -112,18 +114,20 @@ export default function ScanningAnimation({
         </div>
 
         {/* Binary Stream Decoration */}
-        <div className="absolute -left-20 top-0 bottom-0 w-10 flex flex-col items-center gap-2 opacity-10 pointer-events-none">
-          {Array.from({ length: 20 }).map((_, i) => (
-            <motion.span 
-              key={i}
-              animate={{ opacity: [0, 1, 0] }}
-              transition={{ duration: 1, delay: i * 0.1, repeat: Infinity }}
-              className="text-[8px] text-primary font-mono"
-            >
-              {Math.random() > 0.5 ? '1' : '0'}
-            </motion.span>
-          ))}
-        </div>
+        {mounted && (
+          <div className="absolute -left-20 top-0 bottom-0 w-10 flex flex-col items-center gap-2 opacity-10 pointer-events-none">
+            {Array.from({ length: 20 }).map((_, i) => (
+              <motion.span 
+                key={i}
+                animate={{ opacity: [0, 1, 0] }}
+                transition={{ duration: 1, delay: i * 0.1, repeat: Infinity }}
+                className="text-[8px] text-primary font-mono"
+              >
+                {Math.random() > 0.5 ? '1' : '0'}
+              </motion.span>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { useAuth } from '@/lib/auth-context';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, Target, Sparkles, ArrowRight, BrainCircuit, ShieldCheck } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import ReasoningStream from '@/components/ReasoningStream';
 
 export default function Home() {
   const { loginAsGuest, user, isLoading } = useAuth();
@@ -31,14 +32,20 @@ export default function Home() {
         method: 'POST',
         body: formData,
       });
+      
       const data = await res.json();
+      
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to generate tree');
+      }
+
       if (data.success) {
         router.push(`/dashboard/${data.treeId}`);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      // For demo purposes, redirect anyway if backend fails due to missing keys
-      alert("Note: To run the AI generation, you need to set GEMINI_API_KEY and SUPABASE env vars. Redirecting to demo view.");
+      // For demo purposes, redirect anyway if backend fails
+      alert(`Synthesis Error: ${err.message}. Redirecting to Demo Mode.`);
       router.push('/dashboard/demo');
     } finally {
       setIsGenerating(false);
@@ -61,7 +68,7 @@ export default function Home() {
           className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-mono mb-6 backdrop-blur-md"
         >
           <Sparkles className="w-4 h-4" />
-          <span>Powered by Gemini 2.5 Flash</span>
+          <span>Powered by Gemini 1.5 Flash</span>
         </motion.div>
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-r from-white via-cyan-100 to-primary bg-clip-text text-transparent font-display drop-shadow-[0_0_15px_rgba(0,243,255,0.3)]">
           Architect Your Career.<br />Synthesized by AI.
@@ -118,7 +125,7 @@ export default function Home() {
             />
           </div>
 
-          {/* Submit */}
+          {/* Submit & Demo */}
           {!user && !isLoading ? (
             <button 
               type="button"
@@ -126,29 +133,46 @@ export default function Home() {
               className="w-full flex items-center justify-center gap-2 glass-button !bg-slate-800 hover:!bg-slate-700 !text-slate-200"
             >
               <ShieldCheck className="w-5 h-5" />
-              Continue as Guest
+              Initialize Guest Session
             </button>
           ) : (
-            <button 
-              type="submit"
-              disabled={!file || !goal || isGenerating}
-              className="w-full flex items-center justify-center gap-2 glass-button"
-            >
-              {isGenerating ? (
-                <>
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  Generating Tree...
-                </>
-              ) : (
-                <>
-                  <BrainCircuit className="w-5 h-5" />
-                  Synthesize Trajectory
-                  <ArrowRight className="w-5 h-5" />
-                </>
-              )}
-            </button>
+            <div className="flex flex-col gap-4">
+              <button 
+                type="submit"
+                disabled={!file || !goal || isGenerating}
+                className="w-full flex items-center justify-center gap-2 glass-button"
+              >
+                {isGenerating ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Synthesizing...
+                  </>
+                ) : (
+                  <>
+                    <BrainCircuit className="w-5 h-5" />
+                    Synthesize Trajectory
+                    <ArrowRight className="w-5 h-5" />
+                  </>
+                )}
+              </button>
+
+              <button 
+                type="button"
+                onClick={() => router.push('/dashboard/demo')}
+                className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl border border-primary/20 bg-primary/5 text-primary font-bold uppercase tracking-widest hover:bg-primary/10 transition-all text-xs"
+              >
+                <Sparkles className="w-4 h-4" />
+                Launch One-Click Demo
+              </button>
+            </div>
           )}
         </form>
+
+        <AnimatePresence>
+          {isGenerating && (
+            <ReasoningStream isGenerating={isGenerating} />
+          )}
+        </AnimatePresence>
       </motion.div>
 
       {/* Floating Elements (Visual Decoration) */}

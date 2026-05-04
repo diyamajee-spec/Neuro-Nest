@@ -4,7 +4,8 @@ import { supabase } from '@/lib/supabase';
 
 export async function POST(req: NextRequest) {
   try {
-    const { nodeId, answers, questions, userId, isGuest } = await req.json();
+    const { nodeId, answers, questions, userId: rawUserId, isGuest } = await req.json();
+    const userId = (isGuest || !rawUserId || rawUserId === 'undefined') ? null : rawUserId;
 
     if (!nodeId || !answers || !questions) {
       return NextResponse.json({ error: 'Missing required data' }, { status: 400 });
@@ -17,7 +18,13 @@ export async function POST(req: NextRequest) {
       .eq('id', nodeId)
       .single();
 
-    if (nodeError) throw nodeError;
+    if (nodeError) {
+      console.warn('Node not found in DB, likely demo mode:', nodeId);
+      // For demo mode or missing nodes, provide a fallback label
+      const demoLabel = questions[0]?.question?.split('for ')[1]?.replace('?', '') || "Professional Skill";
+      const result = await scoreQuiz(demoLabel, questions, answers);
+      return NextResponse.json(result);
+    }
 
     // 2. Score via AI
     const result = await scoreQuiz(node.label, questions, answers);
@@ -47,7 +54,7 @@ export async function POST(req: NextRequest) {
       }
 
       // 5. Track progress
-      if (!isGuest && userId) {
+      if (userId) {
         await supabase.from('node_progress').insert({
           user_id: userId,
           node_id: nodeId,

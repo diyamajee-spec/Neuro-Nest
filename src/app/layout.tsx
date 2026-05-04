@@ -3,13 +3,15 @@ import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth-context";
 
+import { cn } from "@/lib/utils";
+
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const display = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" });
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
   title: "Neuro-Nest | AI-Powered Career Synthesis",
-  description: "Accelerate your career trajectory with personalized neural mastery maps engineered by Gemini 2.5 Flash.",
+  description: "Accelerate your career trajectory with personalized neural mastery maps engineered by Gemini 1.5 Flash.",
 };
 
 export default function RootLayout({
@@ -18,8 +20,11 @@ export default function RootLayout({
   children?: any;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.variable} ${display.variable} ${mono.variable} font-sans bg-background text-foreground antialiased selection:bg-primary/20`}>
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <body 
+        className={`${inter.variable} ${display.variable} ${mono.variable} font-sans bg-background text-foreground antialiased selection:bg-primary/20`}
+        suppressHydrationWarning
+      >
         <AuthProvider>
           <div className="relative min-h-screen">
             {/* Ambient Neural Gradients */}

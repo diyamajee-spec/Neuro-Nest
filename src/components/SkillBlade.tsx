@@ -87,18 +87,33 @@ export default function SkillBlade({
                   <Sparkles className="w-4 h-4" /> Curriculum Assets
                 </h4>
                 <ul className="space-y-4">
-                  {[
-                    "Mastery Documentation & Specs",
-                    "Advanced Implementation Patterns",
-                    "Architectural Case Studies"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-gray-400 hover:text-white transition-colors cursor-default">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary/50" />
-                      {item}
+                  {(node.metadata?.resources || [
+                    { title: "Mastery Documentation & Specs", type: "doc" },
+                    { title: "Advanced Implementation Patterns", type: "project" },
+                    { title: "Architectural Case Studies", type: "video" }
+                  ]).map((item: any, i: number) => (
+                    <li key={i} className="flex items-center gap-3 text-sm text-gray-400 hover:text-white transition-colors cursor-pointer group/item">
+                      <div className="p-1.5 rounded-lg bg-white/5 text-gray-500 group-hover/item:text-primary transition-colors">
+                        {item.type === 'video' ? <Play className="w-3 h-3" /> : <BookOpen className="w-3 h-3" />}
+                      </div>
+                      <span className="flex-1">{item.title}</span>
                     </li>
                   ))}
                 </ul>
               </div>
+
+              {node.metadata?.market_insight && (
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10">
+                    <div className="text-[8px] font-bold text-emerald-500 uppercase tracking-widest mb-1">Salary Range</div>
+                    <div className="text-sm font-black text-white">{node.metadata.market_insight.salary_range || "Market Rate"}</div>
+                  </div>
+                  <div className="p-4 rounded-2xl bg-blue-500/5 border border-blue-500/10">
+                    <div className="text-[8px] font-bold text-blue-500 uppercase tracking-widest mb-1">Market Demand</div>
+                    <div className="text-sm font-black text-white uppercase">{node.metadata.market_insight.demand_level || "Standard"}</div>
+                  </div>
+                </div>
+              )}
               
               <div className="pt-8">
                 {!isMastered && !isLocked && (

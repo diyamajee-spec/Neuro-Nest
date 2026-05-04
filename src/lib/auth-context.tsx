@@ -27,22 +27,32 @@ export const AuthProvider = ({ children }: { children?: any }) => {
   useEffect(() => {
     // Check for existing session
     const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (session) {
-        setUser(session.user);
-        setIsGuest(false);
-      } else {
-        const guestData = localStorage.getItem('neuro_nest_guest');
-        if (guestData) {
-          setUser(JSON.parse(guestData));
-          setIsGuest(true);
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (session) {
+          setUser(session.user);
+          setIsGuest(false);
+        } else {
+          const guestData = localStorage.getItem('neuro_nest_guest');
+          if (guestData) {
+            setUser(JSON.parse(guestData));
+            setIsGuest(true);
+          }
         }
+      } catch (err) {
+        console.error("Session check failed:", err);
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
 
-    checkSession();
+    // Race the session check with a timeout
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
+    checkSession().then(() => clearTimeout(timeout));
   }, []);
 
   const loginAsGuest = () => {

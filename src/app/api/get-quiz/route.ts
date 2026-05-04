@@ -14,11 +14,13 @@ export async function GET(req: NextRequest) {
     // 1. Fetch node details
     const { data: node, error: nodeError } = await supabase
       .from('nodes')
-      .select('label, description')
+      .select('label, description, metadata')
       .eq('id', nodeId)
       .single();
 
     if (nodeError) throw nodeError;
+
+    const metadata = typeof node.metadata === 'string' ? JSON.parse(node.metadata) : (node.metadata || {});
 
     // 2. Generate Quiz via AI
     const quiz = await generateQuiz(node.label, node.description);
